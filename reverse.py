@@ -1,5 +1,5 @@
 
-#I need to reverse an array, how is array implemented in Python?
+#Reverse an array
 
 myList = [1,2,3,45,6,2,3]
 
