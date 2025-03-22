@@ -1,2 +1,2 @@
 # DSA
-Array reversal and recursion
+Will upload all DSA related questions in this repo
