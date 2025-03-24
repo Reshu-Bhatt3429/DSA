@@ -3,8 +3,11 @@
 from operator import truediv
 
 userInput = int(input("Enter the integer of your choice: "))
-
+#str() converts the int into str
+# map creates an iterable like 123 will be treated as 1,2,4 individually
 convert = list(str(userInput))
+
+
 
 emptyList = []
 
