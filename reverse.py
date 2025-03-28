@@ -1,15 +1,6 @@
-
-#Reverse an array
-
-myList = [1,2,3,45,6,2,3]
-
-print(f'Original string is: {myList}')
-
-emptyList = []
-
-while myList:
-    element = myList.pop()
-    emptyList.append(element)
-
-
-print(f'The reverse string will be: {emptyList}')
+def reverse_array():
+    arr = [1, 2, 3, 4, 5]
+    reversed_arr = []
+    for i in range(len(arr) - 1, -1, -1):
+        reversed_arr.append(arr[i])
+    return reversed_arr
