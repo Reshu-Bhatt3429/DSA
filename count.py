@@ -1,11 +1,8 @@
-def count_vowels(s):
-    vowels = "aeiouAEIOU"
+def count_consonants():
+    s = "hello"
+    vowels = "aeiou"
     count = 0
     for char in s:
-        if char in vowels:
+        if char.isalpha() and char.lower() not in vowels:
             count += 1
     return count
-
-
-s = "Hello World"
-print(count_vowels(s))
