@@ -1,4 +1,9 @@
-def starts_with_vowel():
-    s = "apple"
+def count_words_starting_with_vowel():
+    sentence = "apple orange banana elephant igloo"
     vowels = "aeiouAEIOU"
-    return s[0] in vowels
+    count = 0
+    words = sentence.split()
+    for word in words:
+        if word[0] in vowels:
+            count += 1
+    return count
