@@ -1,6 +1,3 @@
-def count_digits():
-    num = 12345
-    count = 0
-    for char in str(num):
-        count += 1
-    return count
+def is_only_digits_or_letters():
+    s = "12345"
+    return s.isdigit() or s.isalpha()
