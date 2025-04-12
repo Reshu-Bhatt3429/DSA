@@ -1,6 +1,7 @@
-def is_all_uppercase():
-    s = "HELLO"
+#Check if a string contains at least one uppercase letter
+def has_uppercase():
+    s = "helloWorld"
     for char in s:
-        if not char.isupper():
-            return False
-    return True
+        if char.isupper():
+            return True
+    return False
