@@ -1,12 +1,11 @@
+// Print all subsequences (power set) of an array.
 #include <iostream>
 #include <vector>
 using namespace std;
 
 void printSubsequencesHelper(vector<int>& arr, int index, vector<int>& current) {
     if (index == arr.size()) {
-        for (int i = 0; i < current.size(); i++) {
-            cout << current[i] << " ";
-        }
+        for (int i : current) cout << i << " ";
         cout << endl;
         return;
     }
