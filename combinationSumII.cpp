@@ -1,32 +1,40 @@
-// Find all unique combinations in candidates where the numbers sum to target (no duplicates allowed).
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-void combinationSum2Helper(vector<int>& candidates, int target, vector<int>& current, int start) {
+void combinationSum2(vector<int>& candidates, int target, vector<int>& current, int index, vector<vector<int>>& result) {
     if (target == 0) {
-        for (int i : current) cout << i << " ";
-        cout << endl;
+        result.push_back(current);
         return;
     }
-    if (target < 0) return;
-    for (int i = start; i < candidates.size(); i++) {
-        if (i > start && candidates[i] == candidates[i - 1]) continue;
+    for (int i = index; i < candidates.size(); ++i) {
+        if (i > index && candidates[i] == candidates[i-1]) continue;
+        if (candidates[i] > target) break;
         current.push_back(candidates[i]);
-        combinationSum2Helper(candidates, target - candidates[i], current, i + 1);
+        combinationSum2(candidates, target - candidates[i], current, i + 1, result);
         current.pop_back();
     }
 }
 
-void combinationSum2(vector<int>& candidates, int target) {
+vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
     sort(candidates.begin(), candidates.end());
+    vector<vector<int>> result;
     vector<int> current;
-    combinationSum2Helper(candidates, target, current, 0);
+    combinationSum2(candidates, target, current, 0, result);
+    return result;
 }
 
 int main() {
-    vector<int> candidates = {10, 1, 2, 7, 6, 1, 5};
+    vector<int> candidates = {10,1,2,7,6,1,5};
     int target = 8;
-    combinationSum2(candidates, target);
+    vector<vector<int>> result = combinationSum2(candidates, target);
+
+    for (const auto& comb : result) {
+        for (int num : comb) {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+    return 0;
 }

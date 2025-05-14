@@ -1,29 +1,39 @@
-// Find all unique combinations in candidates where the numbers sum to target.
+// recursive function to find all combinations
 #include <iostream>
 #include <vector>
 using namespace std;
 
-void combinationSumHelper(vector<int>& candidates, int target, vector<int>& current, int start) {
+void combinationSumHelper(vector<int>& candidates, int target, vector<int>& current, int index, vector<vector<int>>& result) {
     if (target == 0) {
-        for (int i : current) cout << i << " ";
-        cout << endl;
+        result.push_back(current);
         return;
     }
-    if (target < 0) return;
-    for (int i = start; i < candidates.size(); i++) {
-        current.push_back(candidates[i]);
-        combinationSumHelper(candidates, target - candidates[i], current, i);
-        current.pop_back();
+    if (target < 0 || index == candidates.size()) {
+        return;
     }
+    current.push_back(candidates[index]);
+    combinationSumHelper(candidates, target - candidates[index], current, index, result);
+    current.pop_back();
+    combinationSumHelper(candidates, target, current, index + 1, result);
 }
 
-void combinationSum(vector<int>& candidates, int target) {
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int>> result;
     vector<int> current;
-    combinationSumHelper(candidates, target, current, 0);
+    combinationSumHelper(candidates, target, current, 0, result);
+    return result;
 }
 
 int main() {
     vector<int> candidates = {2, 3, 6, 7};
     int target = 7;
-    combinationSum(candidates, target);
+    vector<vector<int>> result = combinationSum(candidates, target);
+
+    for (const auto& comb : result) {
+        for (int num : comb) {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+    return 0;
 }
