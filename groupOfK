@@ -1,0 +1,59 @@
+// Iterative reversal of groups using pointers  
+#include <iostream>
+using namespace std;
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+ListNode* reverseKGroup(ListNode* head, int k) {
+    ListNode dummy(0);
+    dummy.next = head;
+    ListNode* prev_group_end = &dummy;
+    
+    while (true) {
+        ListNode* group_start = prev_group_end->next;
+        ListNode* curr = group_start;
+        int count = 0;
+        
+        while (curr && count < k) {
+            curr = curr->next;
+            count++;
+        }
+        if (count < k) break;
+        
+        ListNode* prev = nullptr, *next = nullptr;
+        curr = group_start;
+        for (int i = 0; i < k; i++) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        
+        prev_group_end->next = prev;
+        group_start->next = curr;
+        prev_group_end = group_start;
+    }
+    return dummy.next;
+}
+
+void printList(ListNode* head) {
+    while (head) {
+        cout << head->val << " ";
+        head = head->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    ListNode* result = reverseKGroup(head, 2);
+    printList(result);
+    return 0;
+}
