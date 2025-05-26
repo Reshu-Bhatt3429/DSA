@@ -1,33 +1,35 @@
-
-// Generate all subsets using backtracking (2^n combinations)  
 #include <iostream>  
 #include <vector>  
 using namespace std;  
 
+bool dfs(vector<vector<char>>& board, int i, int j, string& word, int index) {  
+    if (index == word.size()) return true;  
+    if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || board[i][j] != word[index])  
+        return false;  
 
-void backtrack(vector<vector<int>>& res, vector<int>& nums, vector<int>& temp, int start) {  
-    res.push_back(temp);  
-    for(int i = start; i < nums.size(); i++) {  
-        temp.push_back(nums[i]);  
-        backtrack(res, nums, temp, i + 1);  
-        temp.pop_back();  
-    }  
+    char temp = board[i][j];  
+    board[i][j] = '#';  
+    bool found = dfs(board, i+1, j, word, index+1) ||  
+                 dfs(board, i-1, j, word, index+1) ||  
+                 dfs(board, i, j+1, word, index+1) ||  
+                 dfs(board, i, j-1, word, index+1);  
+    board[i][j] = temp;  
+    return found;  
 }  
 
-vector<vector<int>> subsets(vector<int>& nums) {  
-    vector<vector<int>> res;  
-    vector<int> temp;  
-    backtrack(res, nums, temp, 0);  
-    return res;  
+bool exist(vector<vector<char>>& board, string word) {  
+    for (int i = 0; i < board.size(); i++) {  
+        for (int j = 0; j < board[0].size(); j++) {  
+            if (dfs(board, i, j, word, 0))  
+                return true;  
+        }  
+    }  
+    return false;  
 }  
 
 int main() {  
-    vector<int> nums = {1, 2, 3};  
-    auto result = subsets(nums);  
-    for(auto& subset : result) {  
-        cout << "[ ";  
-        for(int num : subset) cout << num << " ";  
-        cout << "] ";  
-    }  
+    vector<vector<char>> board = {{'A','B','C','E'}, {'S','F','C','S'}, {'A','D','E','E'}};  
+    string word = "ABCCED";  
+    cout << (exist(board, word) ? "Found" : "Not Found");  
     return 0;  
 }
